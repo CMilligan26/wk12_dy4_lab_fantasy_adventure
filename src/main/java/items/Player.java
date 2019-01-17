@@ -81,7 +81,8 @@ public class Player {
     }
 
     public void dropItem(Content itemToDrop, Room room){
-
+        this.inventory.remove(itemToDrop);
+        room.addItem(itemToDrop);
     }
 
     public void equip(IEquipable itemToEquip){

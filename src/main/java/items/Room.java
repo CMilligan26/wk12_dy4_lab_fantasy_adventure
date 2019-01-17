@@ -14,11 +14,19 @@ public class Room {
         contents = new ArrayList<>();
     }
 
+    public ArrayList<Content> getContents() {
+        return contents;
+    }
+
     public String getName() {
         return name;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public void addItem(Content itemToDrop) {
+        contents.add(itemToDrop);
     }
 }

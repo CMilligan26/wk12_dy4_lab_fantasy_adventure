@@ -1,8 +1,5 @@
 import behaviours.IAddable;
-import items.Content;
-import items.Paladin;
-import items.Player;
-import items.Weapon;
+import items.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,10 +10,13 @@ import static org.junit.Assert.assertEquals;
 public class TestPlayer {
 
 	private Paladin player;
+	private Weapon sword;
 
 	@Before
 	public void setUp() {
 		player = new Paladin("Roland");
+		sword = new Weapon("Sword");
+		player.addItem(sword);
 	}
 
 	@Test
@@ -41,10 +41,17 @@ public class TestPlayer {
 
 	@Test
 	public void playerCanAddContent() {
-		Weapon sword = new Weapon("Sword");
-		player.addItem(sword);
 		ArrayList<IAddable> things = player.getInventory();
 		assertEquals(sword, (Content)(things.get(0)));
+	}
+
+	@Test
+	public void playerCanDropItem() {
+		Room ballroom = new Room("Ballroom", "You are in a ballroom, a room with balls.");
+		player.dropItem(sword, ballroom);
+		assertEquals(0,player.getInventory().size());
+		assertEquals(1, ballroom.getContents().size());
+		assertEquals(sword, ballroom.getContents().get(0));
 	}
 
 }
