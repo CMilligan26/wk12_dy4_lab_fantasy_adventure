@@ -1,4 +1,5 @@
 import behaviours.IAddable;
+import behaviours.IEquipable;
 import items.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,4 +55,39 @@ public class TestPlayer {
 		assertEquals(sword, ballroom.getContents().get(0));
 	}
 
+	@Test
+	public void playerCanEquipItem(){
+		player.equip(sword);
+		ArrayList<IEquipable> equippedThings = player.getEquipped();
+		ArrayList<IAddable> inventory = player.getInventory();
+		assertEquals(sword, equippedThings.get(0));
+		assertEquals(0, inventory.size());
+	}
+
+	@Test
+	public void playerCannotEquipItemWhichIsNotInInventory() {
+		Weapon mace = new Weapon("Mace of Base");
+		player.equip(mace);
+		ArrayList<IEquipable> equippedThings = player.getEquipped();
+		assertEquals(0, equippedThings.size());
+	}
+
+	@Test
+	public void playerCanUnequipItems(){
+		player.equip(sword);
+		player.unequip(sword);
+		ArrayList<IEquipable> equippedThings = player.getEquipped();
+		ArrayList<IAddable> inventory = player.getInventory();
+		assertEquals(0, equippedThings.size());
+		assertEquals(sword, inventory.get(0));
+	}
+
+	@Test
+	public void playerCannotUnequipItemThatisNotEquipped() {
+		player.equip(sword);
+		Weapon mace = new Weapon("Mace of Base");
+		player.unequip(mace);
+		ArrayList<IEquipable> equippedThings = player.getEquipped();
+		assertEquals(1, equippedThings.size());
+	}
 }

@@ -86,10 +86,16 @@ public class Player {
     }
 
     public void equip(IEquipable itemToEquip){
-
+        if (this.inventory.contains(itemToEquip)) {
+            this.inventory.remove(itemToEquip);
+            this.equipped.add(itemToEquip);
+        }
     }
 
     public void unequip(IEquipable itemToUnequip){
-
+        if (this.equipped.contains(itemToUnequip)) {
+            this.inventory.add((IAddable) itemToUnequip);
+            this.equipped.remove(itemToUnequip);
+        }
     }
 }
